@@ -164,12 +164,27 @@ token.dictionary // ["access_token": "abc123", "token_type": "bearer", "scope": 
 
 #### Token Store
 
-Every `Token` is stored and retrieved through an object that conforms to the `TokenStore` protocol. 
+Every `Token` is stored and retrieved through an object that conforms to the `TokenStore` protocol.
 
 The library currently supports following `TokenStore`s:
 
-* `NSUserDefaults`: the default *Token Store*. Information are saved locally and, if properly initialized, to your *App Group*.
-* `NSUbiquitousKeyValueStore`: the information are saved in the *iCloud Key Value Store*. Before you use this *Token Store* make sure your project has been properly configured as described [here](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/iCloudFundametals.html#//apple_ref/doc/uid/TP40012094-CH6-SW26).
+```swift
+provider.tokenStore = Keychain.shared
+```
+
+**`Keychain`**: Before you use this`TokenStore`, make sure you turn on the *Keychain Sharing* capability.
+
+```swift
+provider.tokenStore = UserDefault.standard
+```
+
+**`UserDefaults`**: the default `TokenStore`. Information are saved locally and, if properly initialized, to your *App Group*.
+
+```swift
+provider.tokenStore = NSUbiquitousKeyValueStore.default()
+```
+
+**`NSUbiquitousKeyValueStore`**: the information are saved in the *iCloud Key Value Store*. Before you use this `TokenStore` make sure your project has been properly configured as described [here](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/iCloudFundametals.html#//apple_ref/doc/uid/TP40012094-CH6-SW26).
 
 #### Error
 
@@ -219,6 +234,8 @@ The library currently supports following `TokenStore`s:
 - [`Meetup`](https://github.com/delba/SwiftyOAuth/blob/master/Source/Providers/Meetup.swift) - [**doc**](https://github.com/delba/SwiftyOAuth/wiki/Meetup)
 - [`Strava`](https://github.com/delba/SwiftyOAuth/blob/master/Source/Providers/Strava.swift) - [**doc**](https://github.com/delba/SwiftyOAuth/wiki/Strava)
 - [`Google`](https://github.com/delba/SwiftyOAuth/blob/master/Source/Providers/Google.swift) - [**doc**](https://github.com/delba/SwiftyOAuth/wiki/Google)
+- [`Stuart`](https://github.com/delba/SwiftyOAuth/blob/master/Source/Providers/Stuart.swift) - [**doc**](https://github.com/delba/SwiftyOAuth/wiki/Stuart)
+- [`UberRUSH`](https://github.com/delba/SwiftyOAuth/blob/master/Source/Providers/UberRUSH.swift) - [**doc**](https://github.com/delba/SwiftyOAuth/wiki/UberRUSH)
 - *More to come...*
 
 Check the [**wiki**](https://github.com/delba/SwiftyOAuth/wiki) for more informations!
@@ -239,7 +256,7 @@ $ brew install carthage
 To integrate **SwiftyOAuth** into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "delba/SwiftyOAuth" >= 0.3
+github "delba/SwiftyOAuth" >= 1.1
 ```
 
 #### CocoaPods
@@ -257,7 +274,7 @@ To integrate **SwiftyOAuth** into your Xcode project using CocoaPods, specify it
 ```ruby
 use_frameworks!
 
-pod 'SwiftyOAuth', '~> 0.3'
+pod 'SwiftyOAuth', '~> 1.1'
 ```
 
 ## License

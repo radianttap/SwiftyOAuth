@@ -1,5 +1,5 @@
 //
-// TokenStore.swift
+// KeychainStore.swift
 //
 // Copyright (c) 2016 Damien (http://delba.io)
 //
@@ -22,29 +22,22 @@
 // SOFTWARE.
 //
 
-public protocol TokenStore {
-    /**
-     Retrieve a token for the given Provider
-     
-     - parameter provider: The provider requesting the `Token`.
-     
-     - returns: Optional `Token`
-     */
-    func token(forProvider provider: Provider) -> Token?
+extension Keychain: TokenStore {
+    public func token(forProvider provider: Provider) -> Token? {
+        let key = self.key(forProvider: provider)
+        
+        guard let dictionary = dictionary(forKey: key) else { return nil }
+        
+        return Token(dictionary: dictionary)
+    }
     
-    /**
-     Store a token for a Provider
-    
-     - parameter token:   The `Token` to store.
-     - parameter service: The provider requesting the `Token` storage.
-     
-     - returns: Void
-     */
-    func set(_ token: Token?, forProvider provider: Provider)
-}
-
-internal extension TokenStore {
-    func key(forProvider provider: Provider) -> String {
-        return "io.delba.SwiftyOAuth.\(provider.clientID)"
+    public func set(_ token: Token?, forProvider provider: Provider) {
+        let key = self.key(forProvider: provider)
+        
+        if let token = token {
+            set(token.dictionary, forKey: key)
+        } else {
+            removeObject(forKey: key)
+        }
     }
 }

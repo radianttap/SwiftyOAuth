@@ -23,7 +23,7 @@
 //
 
 open class Provider: NSObject {
-    public typealias Completion = (Result<Token, Error>) -> Void
+    public typealias Completion = (Result<Token>) -> Void
     
     /// The client ID.
     open let clientID: String
@@ -48,8 +48,8 @@ open class Provider: NSObject {
     
     /// The token.
     open internal(set) var token: Token? {
-        get { return tokenStore.getTokenForProvider(self) }
-        set { tokenStore.setToken(newValue, forProvider: self) }
+        get { return tokenStore.token(forProvider: self) }
+        set { tokenStore.set(newValue, forProvider: self) }
     }
     
     /// The scopes.
@@ -268,8 +268,8 @@ private extension Provider {
 // MARK: - Handle Incoming URL
 
 private extension Provider {
-    func handleURLForTokenResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token, Error>) -> Void) {
-        let result: Result<Token, Error>
+    func handleURLForTokenResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token>) -> Void) {
+        let result: Result<Token>
         
         if let token = Token(dictionary: URL.fragments) {
             self.token = token
@@ -278,14 +278,14 @@ private extension Provider {
             result = .failure(Error(URL.fragments))
         }
         
-        Queue.main { completion(result) }
+        DispatchQueue.main.async { completion(result) }
     }
     
-    func handleURLForCodeResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token, Error>) -> Void) {
+    func handleURLForCodeResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token>) -> Void) {
         guard let code = URL.queries["code"] else {
             let error = Error(URL.queries)
             
-            Queue.main { completion(.failure(error)) }
+            DispatchQueue.main.async { completion(.failure(error)) }
             
             return
         }
@@ -325,7 +325,7 @@ private extension Provider {
         let params = tokenRequestParams(grantType)
         
         HTTP.POST(tokenURL!, parameters: params) { resultJSON in
-            let result: Result<Token, Error>
+            let result: Result<Token>
             
             switch resultJSON {
             case .success(let json):
@@ -339,7 +339,7 @@ private extension Provider {
                 result = .failure(Error(error as NSError))
             }
             
-            Queue.main { completion(result) }
+            DispatchQueue.main.async { completion(result) }
         }
     }
 }
@@ -352,7 +352,7 @@ extension Provider: SFSafariViewControllerDelegate {
         safariVC?.dismiss(animated: true, completion: nil)
         
         if let completion = completion {
-            Queue.main { completion(.failure(.cancel)) }
+            DispatchQueue.main.async { completion(.failure(Error.cancel)) }
         }
     }
 }
@@ -362,7 +362,7 @@ extension Provider: WebViewControllerDelegate {
         safariVC?.dismiss(animated: true, completion: nil)
         
         if let completion = completion {
-            Queue.main { completion(.failure(.cancel)) }
+            DispatchQueue.main.async { completion(.failure(Error.cancel)) }
         }
     }
 }
@@ -372,7 +372,7 @@ extension Provider {
         NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive)
         
         if let completion = completion {
-            Queue.main { completion(.failure(.cancel)) }
+            DispatchQueue.main.async { completion(.failure(Error.cancel)) }
         }
     }
 }

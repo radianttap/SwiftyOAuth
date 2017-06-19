@@ -1,5 +1,5 @@
 //
-// TokenStore.swift
+// Stuart.swift
 //
 // Copyright (c) 2016 Damien (http://delba.io)
 //
@@ -22,29 +22,17 @@
 // SOFTWARE.
 //
 
-public protocol TokenStore {
-    /**
-     Retrieve a token for the given Provider
-     
-     - parameter provider: The provider requesting the `Token`.
-     
-     - returns: Optional `Token`
-     */
-    func token(forProvider provider: Provider) -> Token?
-    
-    /**
-     Store a token for a Provider
-    
-     - parameter token:   The `Token` to store.
-     - parameter service: The provider requesting the `Token` storage.
-     
-     - returns: Void
-     */
-    func set(_ token: Token?, forProvider provider: Provider)
-}
 
-internal extension TokenStore {
-    func key(forProvider provider: Provider) -> String {
-        return "io.delba.SwiftyOAuth.\(provider.clientID)"
+extension Provider {
+    public static func stuart(clientID: String, clientSecret: String) -> Provider {
+        let provider = Provider(
+            clientID: clientID,
+            clientSecret: clientSecret,
+            tokenURL: "https://sandbox-api.stuart.com/oauth/token"
+        )
+        
+        provider.scopes = ["api"]
+        
+        return provider
     }
 }
