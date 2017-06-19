@@ -171,6 +171,27 @@ open class Provider: NSObject {
         requestToken(.refreshToken(refreshToken), completion: completion)
     }
     
+	/**
+	Forcefully removes the token.
+
+	If there's a refresh token, this will enforce its immediate expiry. If no refresh token, then it will remove it.
+	*/
+	open func invalidateToken() {
+		guard let _ = token?.refreshToken else {
+			removeToken()
+			return
+		}
+
+		token?.forceExpiry()
+	}
+
+	/**
+	Unconditionally removes the token.
+	*/
+	open func removeToken() {
+		token = nil
+	}
+
     /**
      Handles the incoming URL.
      

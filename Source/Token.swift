@@ -70,9 +70,13 @@ public struct Token {
     fileprivate var scope: String? {
         return dictionary["scope"] as? String
     }
+
+	public mutating func forceExpiry() {
+		dictionary["expires_in"] = 0
+	}
     
     /// The full response dictionary.
-    public let dictionary: [String: Any]
+    public fileprivate(set) var dictionary: [String: Any]
     
     public init?(dictionary: [String: Any]) {
         guard dictionary["access_token"] as? String != nil else {
