@@ -183,7 +183,7 @@ open class Provider: NSObject {
 		}
 
 		token?.forceExpiry()
-		tokenStore.setToken(token, forProvider: self)
+		tokenStore.set(token, forProvider: self)
 	}
 
 	/**
@@ -191,7 +191,7 @@ open class Provider: NSObject {
 	*/
 	open func removeToken() {
 		token = nil
-		tokenStore.setToken(nil, forProvider: self)
+		tokenStore.set(nil, forProvider: self)
 	}
 
     /**
