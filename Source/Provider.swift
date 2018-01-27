@@ -170,6 +170,18 @@ open class Provider: NSObject {
         
         requestToken(.refreshToken(refreshToken), completion: completion)
     }
+
+	/**
+	Replace existing token with the supplied one.
+
+	In cases when user identity is mixed into the Token, this can useful to achieve seamless multi-user support in the given app.
+	*/
+	open func replaceToken(with token: Token) {
+		if let existingToken = self.token {
+			if existingToken.tokenType != token.tokenType { return }
+		}
+		tokenStore.set(token, forProvider: self)
+	}
     
 	/**
 	Forcefully removes the token.
