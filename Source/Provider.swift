@@ -202,7 +202,6 @@ open class Provider: NSObject {
 	Unconditionally removes the token.
 	*/
 	open func removeToken() {
-		token = nil
 		tokenStore.set(nil, forProvider: self)
 	}
 
