@@ -94,4 +94,14 @@ public enum Error: Swift.Error {
     init(_ error: NSError) {
         self = .nsError(error)
     }
+
+
+	public var localizedDescription: String {
+		switch self {
+		case .cancel:
+			return NSLocalizedString("Authorization cancelled", comment: "")
+		default:
+			return NSLocalizedString("Internal error", comment: "")
+		}
+	}
 }
