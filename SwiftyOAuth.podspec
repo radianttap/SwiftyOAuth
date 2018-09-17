@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftyOAuth"
-  s.version      = "1.3"
+  s.version      = "2.0"
   s.license      = { :type => "MIT" }
   s.homepage     = "https://github.com/delba/SwiftyOAuth"
   s.author       = { "Damien" => "damien@delba.io" }
@@ -10,6 +10,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "8.0"
 
   s.source_files = "Source/**/*.{swift,h}"
-
-  s.requires_arc = true
+  s.swift_version = '4.2'
 end
