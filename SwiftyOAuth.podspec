@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "2.0.1"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.homepage     = "https://github.com/radianttap/SwiftyOAuth"
-  s.author       = { "Damien" => "damien@delba.io", "Aleksandar Vacić" => "aplus.rs" }
+  s.authors      = { "Damien" => "damien@delba.io", "Aleksandar Vacić" => "http://aplus.rs" }
   s.summary      = "A small OAuth library with a built-in set of providers"
   s.source       = { :git => "https://github.com/radianttap/SwiftyOAuth.git" }
 
