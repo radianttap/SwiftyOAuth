@@ -107,6 +107,8 @@
 		6DF7DF901CD53F6E0099C320 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		6DF7DF951CD547C30099C320 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		D087CC221DCA04C400F2EE9D /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		D0A3D3912212388700695166 /* SwiftyOAuth.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftyOAuth.podspec; sourceTree = "<group>"; };
+		D0A3D3922212388700695166 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E5BE044E1D0A01E1004C5969 /* TokenStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		E5BE04511D0A0397004C5969 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E5BE04531D0A0659004C5969 /* UbiquitousKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousKeyValueStore.swift; sourceTree = "<group>"; };
@@ -182,6 +184,8 @@
 		6DF7DF631CD5393E0099C320 = {
 			isa = PBXGroup;
 			children = (
+				D0A3D3922212388700695166 /* README.md */,
+				D0A3D3912212388700695166 /* SwiftyOAuth.podspec */,
 				6DF7DF6E1CD5393E0099C320 /* Products */,
 				6DF7DF6F1CD5393E0099C320 /* Source */,
 				6DF7DF7B1CD5393F0099C320 /* Tests */,
