@@ -256,7 +256,7 @@ $ brew install carthage
 To integrate **SwiftyOAuth** into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "delba/SwiftyOAuth" >= 1.1
+github "radianttap/SwiftyOAuth"
 ```
 
 #### CocoaPods
@@ -274,7 +274,7 @@ To integrate **SwiftyOAuth** into your Xcode project using CocoaPods, specify it
 ```ruby
 use_frameworks!
 
-pod 'SwiftyOAuth', '~> 1.1'
+pod 'SwiftyOAuth', :git => 'https://github.com/radianttap/SwiftyOAuth.git'
 ```
 
 ## License
