@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftyOAuth"
-  s.version      = "2.1"
+  s.version      = "2.1.1"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.homepage     = "https://github.com/radianttap/SwiftyOAuth"
   s.authors      = { "Damien" => "damien@delba.io", "Aleksandar Vacić" => "http://aplus.rs" }
