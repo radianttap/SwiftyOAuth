@@ -214,21 +214,9 @@ open class Provider: NSObject {
     @available(iOS 9.0, *)
 	open func handleURL(_ URL: Foundation.URL, options: [UIApplication.OpenURLOptionsKey: Any]) {
         let sourceApplication = options[.sourceApplication] as? String
-        
-        handleURL(URL, sourceApplication: sourceApplication)
-    }
-    
-    /**
-     Handles the incoming URL.
-     
-     - parameter URL:               The incoming URL to handle.
-     - parameter sourceApplication: The source application.
-     */
-    @available(*, deprecated: 9.0, message: "Use handleURL:options: in application:openURL:options: instead.")
-    open func handleURL(_ URL: Foundation.URL, sourceApplication: String?) {
-        guard shouldHandleURL(URL, sourceApplication: sourceApplication) else { return }
-        
-        handleURL(URL)
+		guard shouldHandleURL(URL, sourceApplication: sourceApplication) else { return }
+
+		handleURL(URL)
     }
     
     internal func handleURL(_ URL: Foundation.URL) {
