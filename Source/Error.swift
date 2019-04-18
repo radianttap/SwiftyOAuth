@@ -63,9 +63,13 @@ public enum Error: Swift.Error {
     case nsError(Foundation.NSError)
     
     init(_ dictionary: [String: Any]) {
-        guard let error = dictionary["error"] as? String,
+        guard
+			let error = dictionary["error"] as? String,
             let description = dictionary["error_description"] as? String
-            else { self = .unknown(dictionary); return }
+		else {
+			self = .unknown(dictionary)
+			return
+		}
         
         switch error {
         case "application_suspended":
@@ -94,14 +98,70 @@ public enum Error: Swift.Error {
     init(_ error: NSError) {
         self = .nsError(error)
     }
+}
 
-
-	public var localizedDescription: String {
+extension Error: LocalizedError {
+	public var errorDescription: String? {
 		switch self {
 		case .cancel:
 			return NSLocalizedString("Authorization cancelled", comment: "")
-		default:
-			return NSLocalizedString("Internal error", comment: "")
+
+		case .applicationSuspended,
+			 .redirectURIMismatch,
+			 .accessDenied,
+			 .invalidRequest,
+			 .invalidScope,
+			 .invalidClient,
+			 .invalidGrant,
+			 .serverError,
+			 .temporarilyUnavailable,
+			 .other,
+			 .unknown,
+			 .nsError:
+			return NSLocalizedString("Authorization failed", comment: "")
+		}
+	}
+
+	public var failureReason: String? {
+		switch self {
+		case .cancel:
+			return nil
+
+		case .applicationSuspended(let desc):
+			return String(format: NSLocalizedString("Application suspended: %@", comment: ""), desc)
+
+		case .redirectURIMismatch(let desc):
+			return String(format: NSLocalizedString("Redirect URI mismatch: %@", comment: ""), desc)
+
+		case .accessDenied(let desc):
+			return String(format: NSLocalizedString("Access denied: %@", comment: ""), desc)
+
+		case .invalidRequest(let desc):
+			return String(format: NSLocalizedString("Invalid request: %@", comment: ""), desc)
+
+		case .invalidScope(let desc):
+			return String(format: NSLocalizedString("Invalid scope: %@", comment: ""), desc)
+
+		case .invalidClient(let desc):
+			return String(format: NSLocalizedString("Invalid client: %@", comment: ""), desc)
+
+		case .invalidGrant(let desc):
+			return String(format: NSLocalizedString("Invalid grant: %@", comment: ""), desc)
+
+		case .serverError(let desc):
+			return String(format: NSLocalizedString("Server error: %@", comment: ""), desc)
+
+		case .temporarilyUnavailable(let desc):
+			return String(format: NSLocalizedString("Temporary unavailable: %@", comment: ""), desc)
+
+		case .other(let errorName, let desc):
+			return String(format: NSLocalizedString("%@: %@", comment: ""), errorName, desc)
+
+		case .unknown(let dict):
+			return String(format: NSLocalizedString("Unexpected error: %@", comment: ""), dict)
+
+		case .nsError(let desc):
+			return String(format: NSLocalizedString("Error: %@", comment: ""), desc)
 		}
 	}
 }
