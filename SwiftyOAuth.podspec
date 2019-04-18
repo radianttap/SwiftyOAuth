@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftyOAuth"
-  s.version      = "2.1.1"
+  s.version      = "3.0"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.homepage     = "https://github.com/radianttap/SwiftyOAuth"
   s.authors      = { "Damien" => "damien@delba.io", "Aleksandar Vacić" => "http://aplus.rs" }
@@ -13,5 +13,4 @@ Pod::Spec.new do |s|
 
   s.source_files = "Source/**/*.{swift,h}"
   s.swift_version = '5.0'
-  s.swift_version = ['4.2', '5.0']
 end
