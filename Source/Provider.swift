@@ -23,7 +23,7 @@
 //
 
 open class Provider: NSObject {
-    public typealias Completion = (Result<Token>) -> Void
+    public typealias Completion = (Result<Token, Error>) -> Void
     
     /// The client ID.
 	public let clientID: String
@@ -145,7 +145,8 @@ open class Provider: NSObject {
         switch responseType {
         case .token, .code:
             visit(URL: authorizeURL!.queries(authRequestParams))
-        case .client, .ownertoken:
+
+		case .client, .ownertoken:
             //  if user and pass are supplied, use resource owner password flow
             if let user = user, let pass = pass {
                 requestToken(.password(user: user, pass: pass), completion: completion)
@@ -226,8 +227,10 @@ open class Provider: NSObject {
         guard let completion = completion else { return }
         
         switch responseType {
-        case .token, .client, .ownertoken: handleURLForTokenResponseType(URL, completion: completion)
-        case .code: handleURLForCodeResponseType(URL, completion: completion)
+        case .token, .client, .ownertoken:
+			handleURLForTokenResponseType(URL, completion: completion)
+        case .code:
+			handleURLForCodeResponseType(URL, completion: completion)
         }
     }
 }
@@ -290,8 +293,8 @@ private extension Provider {
 // MARK: - Handle Incoming URL
 
 private extension Provider {
-    func handleURLForTokenResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token>) -> Void) {
-        let result: Result<Token>
+    func handleURLForTokenResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token, Error>) -> Void) {
+        let result: Result<Token, Error>
         
         if let token = Token(dictionary: URL.fragments) {
             self.token = token
@@ -303,7 +306,7 @@ private extension Provider {
         DispatchQueue.main.async { completion(result) }
     }
     
-    func handleURLForCodeResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token>) -> Void) {
+    func handleURLForCodeResponseType(_ URL: Foundation.URL, completion: @escaping (Result<Token, Error>) -> Void) {
         guard let code = URL.queries["code"] else {
             let error = Error(URL.queries)
             
@@ -347,7 +350,7 @@ private extension Provider {
         let params = tokenRequestParams(grantType)
         
         HTTP.POST(tokenURL!, parameters: params) { resultJSON in
-            let result: Result<Token>
+            let result: Result<Token, Error>
             
             switch resultJSON {
             case .success(let json):

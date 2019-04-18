@@ -57,7 +57,7 @@ extension URLSession {
 }
 
 struct HTTP {
-    static func POST(_ URL: Foundation.URL, parameters: [String: String], completion: @escaping (Result<JSON>) -> Void) {
+    static func POST(_ URL: Foundation.URL, parameters: [String: String], completion: @escaping (Result<JSON, Error>) -> Void) {
         var request = URLRequest(url: URL)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
@@ -71,7 +71,7 @@ struct HTTP {
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(.failure(error as NSError))
+                completion( .failure(.nsError(error as NSError)) )
                 return
             }
             
@@ -80,8 +80,8 @@ struct HTTP {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? JSON ?? [:]
                 completion(.success(json))
-            } catch {
-                completion(.failure(error))
+            } catch let error {
+				completion( .failure(.nsError(error as NSError)) )
             }
         }
         
