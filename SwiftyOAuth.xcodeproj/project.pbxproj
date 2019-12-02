@@ -46,6 +46,7 @@
 		6DF7DF911CD53F6E0099C320 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF7DF901CD53F6E0099C320 /* Token.swift */; };
 		6DF7DF961CD547C30099C320 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF7DF951CD547C30099C320 /* Utilities.swift */; };
 		D087CC231DCA04C400F2EE9D /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D087CC221DCA04C400F2EE9D /* ServerTrustPolicy.swift */; };
+		D0E6859E239510FE0072D4C6 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E6859D239510FE0072D4C6 /* SafariServices.framework */; };
 		E5BE044F1D0A01E1004C5969 /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE044E1D0A01E1004C5969 /* TokenStore.swift */; };
 		E5BE04521D0A0397004C5969 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE04511D0A0397004C5969 /* UserDefaults.swift */; };
 		E5BE04541D0A0659004C5969 /* UbiquitousKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BE04531D0A0659004C5969 /* UbiquitousKeyValueStore.swift */; };
@@ -107,6 +108,7 @@
 		D087CC221DCA04C400F2EE9D /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		D0A3D3912212388700695166 /* SwiftyOAuth.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftyOAuth.podspec; sourceTree = "<group>"; };
 		D0A3D3922212388700695166 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D0E6859D239510FE0072D4C6 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		E5BE044E1D0A01E1004C5969 /* TokenStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		E5BE04511D0A0397004C5969 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		E5BE04531D0A0659004C5969 /* UbiquitousKeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousKeyValueStore.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E6859E239510FE0072D4C6 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +190,7 @@
 				6DF7DF6E1CD5393E0099C320 /* Products */,
 				6DF7DF6F1CD5393E0099C320 /* Source */,
 				6DF7DF7B1CD5393F0099C320 /* Tests */,
+				D0E6859C239510FD0072D4C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,6 +241,14 @@
 				6DACDED21D04CA9400E58C0B /* WebViewController.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0E6859C239510FD0072D4C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0E6859D239510FE0072D4C6 /* SafariServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E5BE04501D0A0386004C5969 /* TokenStores */ = {
@@ -307,7 +319,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = delba;
 				TargetAttributes = {
 					6DF7DF6C1CD5393E0099C320 = {
@@ -550,7 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -573,7 +585,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
